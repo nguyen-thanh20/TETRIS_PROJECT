@@ -4,6 +4,7 @@ public class Window {
 
     public static final int WIDTH = 315 , HEIGHT = 638 ;
     private JFrame window;
+    private Board board;
 
     public Window() {
         window = new JFrame("TETRIS GAME");
@@ -11,6 +12,10 @@ public class Window {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setLocationRelativeTo(null);
+
+        board = new Board();
+
+        window.add(board);
 
         window.setVisible(true);
 
