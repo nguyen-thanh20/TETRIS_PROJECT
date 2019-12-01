@@ -6,6 +6,10 @@ import java.io.IOException;
 
 public class Board extends JPanel {
 
+    private final int blockSize = 30;
+    private final int boardWidth = 10, boardHeight = 20;
+    private int[][] board = new int[boardWidth][boardHeight];
+
     private BufferedImage blocks;
 
     public Board () {
@@ -19,7 +23,16 @@ public class Board extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.drawImage(blocks,0,0,null);
+        //Draw a Matrix of Board
+        for (int i = 0; i < boardHeight; i++) {
+            g.drawLine(0,i*blockSize, boardWidth*blockSize, i*blockSize);
+        }
+
+        for (int j = 0; j < boardWidth; j++) {
+            g.drawLine(j*blockSize, 0, j*blockSize, boardHeight*blockSize);
+        }
+
+
 
     }
    
