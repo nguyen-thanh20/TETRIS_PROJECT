@@ -22,6 +22,49 @@ public class Board extends JPanel {
 
         //Make 7 Shapes
 
+        //I-Shape
+        shapes[0] = new Shape(blocks.getSubimage(0,0,blockSize,blockSize), new int[][] {
+                {1,1,1,1}
+        },this);
+
+        //Z-Shape
+        shapes[1] = new Shape(blocks.getSubimage(blockSize,0,blockSize,blockSize), new int[][] {
+                {1,1,0},
+                {0,1,1}
+        }, this);
+
+        //S-Shape
+        shapes[2] = new Shape(blocks.getSubimage(blockSize*2,0,blockSize,blockSize), new int[][] {
+                {0,1,1},
+                {1,1,0}
+        },this);
+
+        //J-Shape
+        shapes[3] = new Shape(blocks.getSubimage(blockSize*3,0,blockSize,blockSize), new int[][]{
+                {1, 1, 1},
+                {0,0,1}
+        },this);
+
+        //L-Shape
+        shapes[4] = new Shape(blocks.getSubimage(blockSize*4,0,blockSize,blockSize), new int[][] {
+                {1,1,1},
+                {1,1,0}
+        },this);
+
+        //T-Shape
+        shapes[5] = new Shape(blocks.getSubimage(blockSize*5,0,blockSize,blockSize), new int[][] {
+                {1,1,1},
+                {0,1,0}
+        },this);
+
+        //O-Shapes
+        shapes[6] = new Shape(blocks.getSubimage(blockSize*6,0,blockSize,blockSize), new int[][] {
+                {1,1},
+                {1,1}
+        },this);
+
+
+
     }
 
     public void paintComponent(Graphics g) {
