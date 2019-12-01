@@ -9,6 +9,7 @@ public class Board extends JPanel {
     private final int blockSize = 30;
     private final int boardWidth = 10, boardHeight = 20;
     private int[][] board = new int[boardWidth][boardHeight];
+    private Shape[] shapes = new Shape[7];
 
     private BufferedImage blocks;
 
@@ -18,6 +19,9 @@ public class Board extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //Make 7 Shapes
+
     }
 
     public void paintComponent(Graphics g) {
