@@ -64,7 +64,7 @@ public class Board extends JPanel {
                 {1,1}
         },this);
 
-        currentShape = shapes[0];
+        currentShape = shapes[5];
     }
 
     public void paintComponent(Graphics g) {
@@ -81,8 +81,9 @@ public class Board extends JPanel {
             g.drawLine(j*blockSize, 0, j*blockSize, boardHeight*blockSize);
         }
 
-
-
+    }
+    public int getBlockSize(){
+        return blockSize;
     }
    
 }

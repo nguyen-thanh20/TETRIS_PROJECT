@@ -20,7 +20,7 @@ public class Shape {
         for (int row = 0; row < coords.length; row ++) {
             for (int col = 0; col < coords[row].length; col ++) {
                 if (coords[row][col] != 0)
-                    g.drawImage(block, col*30,row*30, null );
+                    g.drawImage(block, col*board.getBlockSize(),row*board.getBlockSize(), null );
             }
         }
 
