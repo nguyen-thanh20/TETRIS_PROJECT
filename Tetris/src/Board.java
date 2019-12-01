@@ -10,6 +10,7 @@ public class Board extends JPanel {
     private final int boardWidth = 10, boardHeight = 20;
     private int[][] board = new int[boardWidth][boardHeight];
     private Shape[] shapes = new Shape[7];
+    private Shape currentShape;
 
     private BufferedImage blocks;
 
@@ -63,12 +64,13 @@ public class Board extends JPanel {
                 {1,1}
         },this);
 
-
-
+        currentShape = shapes[0];
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        currentShape.render(g);
 
         //Draw a Matrix of Board
         for (int i = 0; i < boardHeight; i++) {
