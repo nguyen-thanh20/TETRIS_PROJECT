@@ -16,6 +16,7 @@ public class Window {
         board = new Board();
 
         window.add(board);
+        window.addKeyListener(board);
 
         window.setVisible(true);
 

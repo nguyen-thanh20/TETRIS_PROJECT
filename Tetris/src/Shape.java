@@ -8,17 +8,31 @@ public class Shape {
     private Board board;
     private int deltaX = 0;
     private int x, y;
+    private int normalSpeed = 600, speedDown = 10;
+    private long time, lastTime;
 
     public Shape (BufferedImage block, int[][] coords, Board board){
         this.block = block;
         this.coords = coords;
         this.board = board;
 
-        x = 4;
+        time = 0;
+        lastTime = System.currentTimeMillis();
+        x = 3;
         y = 0;
     }
 
-    public void update (){}
+    public void update (){
+        time += System.currentTimeMillis() - lastTime;
+        lastTime = System.currentTimeMillis();
+        if(!(x + deltaX + coords[0].length > 10) && !(x+deltaX < 0))
+            x += deltaX;
+        if(time > normalSpeed){
+            y++;
+        }
+            y++;
+        
+    }
 
     public void render (Graphics g) {
 

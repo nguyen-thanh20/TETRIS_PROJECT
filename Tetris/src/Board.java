@@ -30,11 +30,14 @@ public class Board extends JPanel implements KeyListener {
         }
 
         timer = new Timer(delay, new ActionListener()){
+            @Override
             public void actionPerformed(ActionEvent e){
                 update();
                 repaint();
             }
-        }
+        };
+
+        timer.start();
 
         //Make 7 Shapes
 
@@ -116,13 +119,13 @@ public class Board extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
+        
 
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
+        
 
     }
    
