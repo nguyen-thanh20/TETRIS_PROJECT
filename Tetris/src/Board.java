@@ -30,6 +30,8 @@ public class Board extends JPanel implements KeyListener {
         }
 
         timer = new Timer(delay, new ActionListener()){
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void actionPerformed(ActionEvent e){
                 update();
@@ -115,11 +117,14 @@ public class Board extends JPanel implements KeyListener {
             currentShape.setDeltaX(-1);
         if(e.getKeyCode() == KeyEvent.VK_RIGHT)
             currentShape.setDeltaX(1);
+        if(e.getKeyCode() == KeyEvent.VK_DOWN)
+            currentShape.speedDown();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
+        if(e.getKeyCode() == KeyEvent.VK_DOWN)
+            currentShape.normailSpeed();;
 
     }
 

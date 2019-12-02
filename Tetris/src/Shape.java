@@ -8,7 +8,7 @@ public class Shape {
     private Board board;
     private int deltaX = 0;
     private int x, y;
-    private int normalSpeed = 600, speedDown = 10;
+    private int normalSpeed = 600, speedDown = 60, currentSpeed ;
     private long time, lastTime;
 
     public Shape (BufferedImage block, int[][] coords, Board board){
@@ -16,6 +16,7 @@ public class Shape {
         this.coords = coords;
         this.board = board;
 
+        currentSpeed = normalSpeed;
         time = 0;
         lastTime = System.currentTimeMillis();
         x = 3;
@@ -27,10 +28,14 @@ public class Shape {
         lastTime = System.currentTimeMillis();
         if(!(x + deltaX + coords[0].length > 10) && !(x+deltaX < 0))
             x += deltaX;
-        if(time > normalSpeed){
-            y++;
+        if(!(y + 1 +coords.length > 20)){
+            if(time > currentSpeed){
+                y++;
+                time = 0;
+            }
         }
-            y++;
+        
+            
         
     }
 
@@ -44,8 +49,14 @@ public class Shape {
         }
 
     }
-    public void getDeltaX(int deltaX){
+    public void setDeltaX(int deltaX){
         this.deltaX = deltaX;
+    }
+    public void normailSpeed(){
+        currentSpeed = normalSpeed;
+    }
+    public void speedDown(){
+        currentSpeed = speedDown;
     }
 
  }
