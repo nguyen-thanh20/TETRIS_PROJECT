@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Window",
+            "request": "launch",
+            "mainClass": "Window",
+            "projectName": "TETRIS_PROJECT_d93a52a"
+        }
+    ]
+}
