@@ -29,11 +29,12 @@ public class Shape {
         if(!(x + deltaX + coords[0].length > 10) && !(x+deltaX < 0))
             x += deltaX;
         if(!(y + 1 +coords.length > 20)){
-            if(time > normalSpeed){
+            if(time > currentSpeed){
                 y++;
                 time = 0;
             }
         }
+        deltaX = 0;
     }
 
     public void render (Graphics g) {
