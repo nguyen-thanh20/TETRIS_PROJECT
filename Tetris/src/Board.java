@@ -30,15 +30,13 @@ public class Board extends JPanel implements KeyListener {
             e.printStackTrace();
         }
 
-        timer = new Timer(delay, new ActionListener()){
-            private static final long serialVersionUID = 1L;
-
+        timer = new Timer(delay, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 update();
                 repaint();
             }
-        };
+        });
 
         timer.start();
 
