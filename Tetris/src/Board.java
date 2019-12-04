@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -29,13 +30,15 @@ public class Board extends JPanel implements KeyListener {
             e.printStackTrace();
         }
 
-        timer = new Timer(delay, new ActionListener() {
+        timer = new Timer(delay, new ActionListener()){
+            private static final long serialVersionUID = 1L;
+
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e){
                 update();
                 repaint();
             }
-        });
+        };
 
         timer.start();
 
@@ -122,7 +125,7 @@ public class Board extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_DOWN)
-            currentShape.normalSpeed();;
+            currentShape.normailSpeed();;
 
     }
 
