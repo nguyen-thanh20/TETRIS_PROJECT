@@ -7,7 +7,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -44,11 +47,30 @@ public class Board extends JPanel implements KeyListener {
     private boolean gamePaused = false;
     private boolean gameOver = false;
 
+    // Buttons press lapse
+
+    private Timer buttonLapse = new Timer(300, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            buttonLapse.stop();
+        }
+    });
+
+    // Score
+    private int score = 0;
+
 
     public Board () {
         try {
             blocks = ImageIO.read(Board.class.getResource("/Blocks.png"));
-        } catch (IOException e) {
+
+            background = ImageIO.read(Board.class.getResource("/background.png"));
+            pause = ImageIO.read(Board.class.getResource("/Pause.png"));
+            refresh = ImageIO.read(Board.class.getResource("/refresh.png"));
+
+            Clip clip = AudioSystem.getClip();
+            //music = clip.open(AudioSystem.getAudioInputStream(Board.class.getResource("/music.wav")));
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
 
