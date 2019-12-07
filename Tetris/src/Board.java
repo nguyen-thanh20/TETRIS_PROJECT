@@ -137,11 +137,11 @@ public class Board extends JPanel implements KeyListener {
         currentShape.render(g);
 
         // Draw a Matrix of Board
-        for (int i = 0; i < boardHeight; i++) {
+        for (int i = 0; i <= boardHeight; i++) {
             g.drawLine(0, i * blockSize, boardWidth * blockSize, i * blockSize);
         }
 
-        for (int j = 0; j < boardWidth; j++) {
+        for (int j = 0; j <= boardWidth; j++) {
             g.drawLine(j * blockSize, 0, j * blockSize, boardHeight * blockSize);
         }
 
