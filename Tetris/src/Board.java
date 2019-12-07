@@ -61,18 +61,15 @@ public class Board extends JPanel implements KeyListener {
 
 
     public Board () {
-        try {
-            blocks = ImageIO.read(Board.class.getResource("/Blocks.png"));
+            // Load Assets
+            blocks = ImageLoader.loadImage("/Blocks.png");
 
-            background = ImageIO.read(Board.class.getResource("/background.png"));
-            pause = ImageIO.read(Board.class.getResource("/Pause.png"));
-            refresh = ImageIO.read(Board.class.getResource("/refresh.png"));
+            background = ImageLoader.loadImage("/background.png");
+            pause = ImageLoader.loadImage("/Pause.png");
+            refresh = ImageLoader.loadImage("/refresh.png");
 
-            Clip clip = AudioSystem.getClip();
-            //music = clip.open(AudioSystem.getAudioInputStream(Board.class.getResource("/music.wav")));
-        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        }
+            music = ImageLoader.LoadSound("/music.wav");
+
 
         timer = new Timer(delay, new ActionListener() {
             @Override
