@@ -7,21 +7,43 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Board extends JPanel implements KeyListener {
 
+    private Clip music;
+
+    private BufferedImage blocks, background, pause, refresh;
+
+    // Block Size
     private final int blockSize = 30;
+
+    // Board Dimensions
     private final int boardWidth = 10, boardHeight = 20;
+
+    // Field
     private int[][] board = new int[boardWidth][boardHeight];
+
+    // All possible shapes
     private Shape[] shapes = new Shape[7];
+
+    // Current Shape
     private Shape currentShape;
+
+    // Game Loop
     private Timer timer;
     private final int FPS = 60;
     private final int delay = 1000 / FPS;
 
-    private BufferedImage blocks;
+    // Mouse event variables
+    private int mouseX, mouseY;
+    private boolean leftClick = false;
+    private Rectangle stopBounds,refreshBounds;
+    private boolean gamePaused = false;
+    private boolean gameOver = false;
+
 
     public Board () {
         try {
