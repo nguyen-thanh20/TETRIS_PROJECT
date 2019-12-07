@@ -70,6 +70,15 @@ public class Board extends JPanel implements KeyListener {
 
             music = ImageLoader.LoadSound("/music.wav");
 
+            music.loop(Clip.LOOP_CONTINUOUSLY);
+
+            mouseX = 0;
+            mouseY = 0;
+
+            stopBounds = new Rectangle(350,350,pause.getWidth(),pause.getHeight() + pause.getHeight()/2);
+            refreshBounds = new Rectangle(350, 500 - refresh.getHeight() - 20, refresh.getWidth(),refresh.getHeight() + refresh.getHeight()/2);
+
+        // Create game looper
 
         timer = new Timer(delay, new ActionListener() {
             @Override
@@ -128,6 +137,8 @@ public class Board extends JPanel implements KeyListener {
     }
 
     public void update() {
+
+
         currentShape.update();
     }
 
