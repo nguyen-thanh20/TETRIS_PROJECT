@@ -45,7 +45,13 @@ public class Shape {
         if(!(x + deltaX + coords[0].length > 10) && !(x+deltaX < 0))
         {
         	
-        	
+        	for(int row = 0; row < coords.length; row++)
+        		for(int col = 0; col < coords[row].length; col++)
+        			if(coords[row][col] != 0)
+        			{
+        				if(board.getBoard()[y + row][x + deltaX + col] != 0)
+        					moveX = false;
+        			}
         	
         	
         	if(moveX)
