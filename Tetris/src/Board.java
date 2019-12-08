@@ -132,7 +132,7 @@ public class Board extends JPanel implements KeyListener {
                 {1,1},
                 {1,1}
         },this);
-
+	currentShape = newShape;
         setNextShape();
     }
 
@@ -168,7 +168,7 @@ public class Board extends JPanel implements KeyListener {
     	
     	Shape newShape = new Shape(shapes[index].getBlock(), shapes[index].getCoords(), this);
     	
-    	currentShape = newShape;
+    
     }
 
     public int getBlockSize() {
