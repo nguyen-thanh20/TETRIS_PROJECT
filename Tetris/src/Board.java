@@ -7,28 +7,78 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Board extends JPanel implements KeyListener {
 
+    private Clip music;
+
+    private BufferedImage blocks, background, pause, refresh;
+
+    // Block Size
     private final int blockSize = 30;
+
+    // Board Dimensions
     private final int boardWidth = 10, boardHeight = 20;
-    private int[][] board = new int[boardWidth][boardHeight];
+
+    // Field
+    private int[][] board = new int[boardHeight][boardWidth];
+
+    // All possible shapes
     private Shape[] shapes = new Shape[7];
+
+    // Current Shape
     private Shape currentShape;
+
+    // Game Loop
     private Timer timer;
     private final int FPS = 60;
     private final int delay = 1000 / FPS;
 
-    private BufferedImage blocks;
+    // Mouse event variables
+    private int mouseX, mouseY;
+    private boolean leftClick = false;
+    private Rectangle stopBounds,refreshBounds;
+    private boolean gamePaused = false;
+    private boolean gameOver = false;
+
+    // Buttons press lapse
+
+    private Timer buttonLapse = new Timer(300, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            buttonLapse.stop();
+        }
+    });
+
+    // Score
+    private int score = 0;
+
 
     public Board () {
-        try {
-            blocks = ImageIO.read(Board.class.getResource("/Blocks.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            // Load Assets
+            blocks = ImageLoader.loadImage("/Blocks.png");
+
+            background = ImageLoader.loadImage("/background.png");
+            pause = ImageLoader.loadImage("/Pause.png");
+            refresh = ImageLoader.loadImage("/refresh.png");
+
+            music = ImageLoader.LoadSound("/music.wav");
+
+            music.loop(Clip.LOOP_CONTINUOUSLY);
+
+            mouseX = 0;
+            mouseY = 0;
+
+            stopBounds = new Rectangle(350,350,pause.getWidth(),pause.getHeight() + pause.getHeight()/2);
+            refreshBounds = new Rectangle(350, 500 - refresh.getHeight() - 20, refresh.getWidth(),refresh.getHeight() + refresh.getHeight()/2);
+
+        // Create game looper
 
         timer = new Timer(delay, new ActionListener() {
             @Override
@@ -82,11 +132,13 @@ public class Board extends JPanel implements KeyListener {
                 {1,1},
                 {1,1}
         },this);
-
-        currentShape = shapes[5];
+	
+        setNextShape();
     }
 
     public void update() {
+
+
         currentShape.update();
     }
 
@@ -94,20 +146,37 @@ public class Board extends JPanel implements KeyListener {
         super.paintComponent(g);
 
         currentShape.render(g);
+        
+        for(int row = 0; row < board.length; row++)
+        	for(int col = 0; col < board[row].length; col++)
+        		if(board[row][col] != 0)
+        			g.drawImage(blocks.getSubimage(0, 0, blockSize, blockSize), col*blockSize, row*blockSize, null);
 
         // Draw a Matrix of Board
-        for (int i = 0; i < boardHeight; i++) {
+        for (int i = 0; i <= boardHeight; i++) {
             g.drawLine(0, i * blockSize, boardWidth * blockSize, i * blockSize);
         }
 
-        for (int j = 0; j < boardWidth; j++) {
+        for (int j = 0; j <= boardWidth; j++) {
             g.drawLine(j * blockSize, 0, j * blockSize, boardHeight * blockSize);
         }
 
     }
+    
+    public void setNextShape() {
+    	int index = (int)(Math.random()*shapes.length);
+    	
+    	Shape newShape = new Shape(shapes[index].getBlock(), shapes[index].getCoords(), this);
+    	
+    	currentShape = newShape;
+    }
 
     public int getBlockSize() {
         return blockSize;
+    }
+    
+    public int[][] getBoard(){
+    	return board;
     }
 
     @Override
@@ -118,6 +187,8 @@ public class Board extends JPanel implements KeyListener {
             currentShape.setDeltaX(1);
         if(e.getKeyCode() == KeyEvent.VK_DOWN)
             currentShape.speedDown();
+        if(e.getKeyCode() == KeyEvent.VK_UP)
+            currentShape.rotate();
     }
 
     @Override
