@@ -39,6 +39,8 @@ public class Board extends JPanel implements KeyListener {
     private Timer timer;
     private final int FPS = 60;
     private final int delay = 1000 / FPS;
+	
+    private boolean gameOver = false ;
 
     // Mouse event variables
     private int mouseX, mouseY;
@@ -137,9 +139,9 @@ public class Board extends JPanel implements KeyListener {
     }
 
     public void update() {
-
-
         currentShape.update();
+	if(gameOver)
+		timer.stop();
     }
 
     public void paintComponent(Graphics g) {
@@ -169,6 +171,13 @@ public class Board extends JPanel implements KeyListener {
     	Shape newShape = new Shape(shapes[index].getBlock(), shapes[index].getCoords(), this , shapes[index].getColor());
     	
     	currentShape = newShape;
+	    
+	for(int row = 0; row < currentShape.getCoords().length; row++)
+	    for(int col = 0; col < currentShape.getCoords()[row].length; col++)
+		    if(currentShape.getCoords()[row][col] != 0){
+		    	if( board[row][col + 3] != 0)
+				gameOver = true;
+		    }
     }
 
     public int getBlockSize() {
