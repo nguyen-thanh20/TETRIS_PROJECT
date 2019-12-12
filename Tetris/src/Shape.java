@@ -41,7 +41,7 @@ public class Shape {
         			if(coords[row][col] != 0)
         				board.getBoard()[y + row][x + col] = color;
         	
-        	
+        	Checkline();
         	board.setNextShape();
         }
         
@@ -95,6 +95,21 @@ public class Shape {
 
     }
 
+    private void Checkline(){
+    	int height = board.getBoard().length - 1;
+	for( int i = height; i > 0; i -- ){
+	 int count = 0;
+	 for( int j = 0; j< board.getBoard()[0].length; j++){
+	 	if(board.getBoard()[1][j] != 0)
+		count ++;
+		board.getBoard()[height][j] = board.getBoard()[i][j];
+	 	}
+		if(count < board.getBoard()[0].length)
+			height--;
+	}
+		
+	    
+    }
 
     public void rotate(){
 
