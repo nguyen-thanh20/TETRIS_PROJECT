@@ -112,7 +112,10 @@ public class Shape {
     }
 
     public void rotate(){
-
+	
+	if(collision)
+		return;
+	    
         int[][] rotatedMatrix;
         rotatedMatrix = getTranspose(coords);
 
