@@ -148,20 +148,34 @@ public class Board extends JPanel implements KeyListener {
 
         if (refreshBounds.contains(mouseX,mouseY) && leftClick )
             startGame();
+
+        if (gamePaused || gameOver) {
+            return;
+        }
         currentShape.update();
 //	    if(gameOver)
 //		    timer.stop();
     }
 
     public void paintComponent(Graphics g) {
+
         super.paintComponent(g);
 
-        currentShape.render(g);
-        
+        g.drawImage(background,0,0,null);
+
+
         for(int row = 0; row < board.length; row++)
         	for(int col = 0; col < board[row].length; col++)
         		if(board[row][col] != 0)
         			g.drawImage(blocks.getSubimage((board[row][col]-1)*blockSize, 0, blockSize, blockSize), col*blockSize, row*blockSize, null);
+
+        for (int row = 0; row < nextShape.getCoords().length; row ++)
+            for (int col = 0; col < nextShape.getCoords()[0].length; col ++)
+                if (nextShape.getCoords()[row][col] != 0) {
+                    g.drawImage(nextShape.getBlock(), col*30 + 320, row*30 + 50,null);
+                }
+
+        currentShape.render(g);
 
         // Draw a Matrix of Board
         for (int i = 0; i <= boardHeight; i++) {
