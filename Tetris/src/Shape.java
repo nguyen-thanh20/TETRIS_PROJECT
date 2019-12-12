@@ -116,14 +116,20 @@ public class Shape {
 	if(collision)
 		return;
 	    
-        int[][] rotatedMatrix;
+        int[][] rotatedMatrix = null;
         rotatedMatrix = getTranspose(coords);
 
         rotatedMatrix = getReverseMatrix(rotatedMatrix);
 
         if(x + rotatedMatrix[0].length > 10 || y + rotatedMatrix.length > 20)
             return;
-
+	
+	for( int row = 0; row < rotatedMatrix.length; row++){
+		for(int col = 0; col < rotatedMatrix[0].length; col++){
+			if(board.getBoard()[y + row][x + col] != 0){
+				return;}
+			}
+		}
 
         coords = rotatedMatrix;
 
