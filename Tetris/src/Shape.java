@@ -39,7 +39,7 @@ public class Shape {
         	for(int row = 0; row < coords.length; row++)
         		for(int col = 0; col < coords[row].length; col++)
         			if(coords[row][col] != 0)
-        				board.getBoard()[y + row][x + col] = 1;
+        				board.getBoard()[y + row][x + col] = color;
         	
         	
         	board.setNextShape();
