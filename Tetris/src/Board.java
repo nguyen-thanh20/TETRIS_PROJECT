@@ -177,6 +177,43 @@ public class Board extends JPanel implements KeyListener {
 
         currentShape.render(g);
 
+        if (stopBounds.contains(mouseX,mouseY)) {
+            g.drawImage(pause.getScaledInstance(pause.getWidth() + 3, pause.getHeight() + 3, BufferedImage.SCALE_DEFAULT), stopBounds.x + 3, stopBounds.y + 3, null);
+            } else {
+                g.drawImage(pause, stopBounds.x, stopBounds.y, null);
+        }
+
+        if (gamePaused)
+        {
+
+            String gamePauseString = "GAME PAUSED";
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Georgia", Font.BOLD, 30));
+            g.drawString(gamePauseString,35, Window.HEIGHT/2);
+        }
+
+        if (gameOver)
+        {
+            String gameOverString = "GAME OVER";
+            g.setColor(Color.WHITE);
+            g.setFont(new Font ("Georgia", Font.BOLD, 30));
+            g.drawString(gameOverString, 50, Window.HEIGHT/2);
+        }
+
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Georgia", Font.BOLD, 20));
+
+        g.drawString("SCORE" , Window.WIDTH - 125, Window.HEIGHT/2);
+        g.drawString(score+"", Window.WIDTH - 125, Window.HEIGHT/2 + 30);
+
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke(2));
+        g2d.setColor(new Color(0,0,0,100));
+
+
+
+
+
         // Draw a Matrix of Board
         for (int i = 0; i <= boardHeight; i++) {
             g.drawLine(0, i * blockSize, boardWidth * blockSize, i * blockSize);
