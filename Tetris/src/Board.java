@@ -16,6 +16,8 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements KeyListener {
 
+    private static final long serialversionUID = 1L;
+
     private Clip music;
 
     private BufferedImage blocks, background, pause, refresh;
@@ -33,21 +35,20 @@ public class Board extends JPanel implements KeyListener {
     private Shape[] shapes = new Shape[7];
 
     // Current Shape
-    private Shape currentShape;
+    private Shape currentShape, nextShape;
 
     // Game Loop
     private Timer timer;
     private final int FPS = 60;
     private final int delay = 1000 / FPS;
 	
-    private boolean gameOver = false ;
-
     // Mouse event variables
     private int mouseX, mouseY;
     private boolean leftClick = false;
     private Rectangle stopBounds,refreshBounds;
     private boolean gamePaused = false;
     private boolean gameOver = false;
+
 
     // Buttons press lapse
 
@@ -135,13 +136,21 @@ public class Board extends JPanel implements KeyListener {
                 {1,1}
         },this, 7);
 	
-        setNextShape();
+        //setNextShape();
     }
 
     public void update() {
+
+        if (stopBounds.contains(mouseX,mouseY) && leftClick && !buttonLapse.isRunning() && !gameOver) {
+            buttonLapse.start();
+            gamePaused =! gamePaused;
+        }
+
+        if (refreshBounds.contains(mouseX,mouseY) && leftClick )
+            startGame();
         currentShape.update();
-	if(gameOver)
-		timer.stop();
+//	    if(gameOver)
+//		    timer.stop();
     }
 
     public void paintComponent(Graphics g) {
@@ -152,7 +161,7 @@ public class Board extends JPanel implements KeyListener {
         for(int row = 0; row < board.length; row++)
         	for(int col = 0; col < board[row].length; col++)
         		if(board[row][col] != 0)
-        			g.drawImage(blocks.getSubimage((board[row][rol]-1)*blockSize, 0, blockSize, blockSize), col*blockSize, row*blockSize, null);
+        			g.drawImage(blocks.getSubimage((board[row][col]-1)*blockSize, 0, blockSize, blockSize), col*blockSize, row*blockSize, null);
 
         // Draw a Matrix of Board
         for (int i = 0; i <= boardHeight; i++) {
@@ -166,18 +175,24 @@ public class Board extends JPanel implements KeyListener {
     }
     
     public void setNextShape() {
-    	int index = (int)(Math.random()*shapes.length);
-    	
-    	Shape newShape = new Shape(shapes[index].getBlock(), shapes[index].getCoords(), this , shapes[index].getColor());
-    	
-    	currentShape = newShape;
-	    
-	for(int row = 0; row < currentShape.getCoords().length; row++)
-	    for(int col = 0; col < currentShape.getCoords()[row].length; col++)
-		    if(currentShape.getCoords()[row][col] != 0){
-		    	if( board[row][col + 3] != 0)
-				gameOver = true;
-		    }
+        int index = (int) (Math.random() * shapes.length);
+
+        nextShape = new Shape(shapes[index].getBlock(), shapes[index].getCoords(), this, shapes[index].getColor());
+    }
+
+    public void setCurrentShape () {
+        currentShape = nextShape ;
+        setNextShape();
+
+        for(int row = 0; row < currentShape.getCoords().length; row++)
+
+	        for(int col = 0; col < currentShape.getCoords()[row].length; col++)
+
+                if(currentShape.getCoords()[row][col] != 0)
+                {
+                    if( board[currentShape.getY() + row ][currentShape.getX() + col] != 0)
+                    gameOver = true;
+                }
     }
 
     public int getBlockSize() {
@@ -187,6 +202,7 @@ public class Board extends JPanel implements KeyListener {
     public int[][] getBoard(){
     	return board;
     }
+
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -211,6 +227,27 @@ public class Board extends JPanel implements KeyListener {
     public void keyTyped(KeyEvent e) {
         
 
+    }
+
+    public void startGame() {
+        stopGame();
+        setNextShape();
+        setCurrentShape();
+        gameOver = false;
+        timer.start();
+    }
+
+    public void stopGame() {
+        score = 0;
+
+        for (int row = 0; row < board.length; row ++)
+        {
+            for (int col = 0; col < board[row].length; col ++)
+            {
+                board[row][col] = 0;
+            }
+        }
+        timer.stop();
     }
    
 }
