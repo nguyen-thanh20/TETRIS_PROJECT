@@ -95,43 +95,43 @@ public class Board extends JPanel implements KeyListener {
         //I-Shape
         shapes[0] = new Shape(blocks.getSubimage(0,0,blockSize,blockSize), new int[][] {
                 {1,1,1,1}
-        },this);
+        },this, 1);
 
         //Z-Shape
         shapes[1] = new Shape(blocks.getSubimage(blockSize,0,blockSize,blockSize), new int[][] {
                 {1,1,0},
                 {0,1,1}
-        }, this);
+        }, this, 2);
 
         //S-Shape
         shapes[2] = new Shape(blocks.getSubimage(blockSize*2,0,blockSize,blockSize), new int[][] {
                 {0,1,1},
                 {1,1,0}
-        },this);
+        },this, 3);
 
         //J-Shape
         shapes[3] = new Shape(blocks.getSubimage(blockSize*3,0,blockSize,blockSize), new int[][]{
                 {1, 1, 1},
                 {0,0,1}
-        },this);
+        },this, 4);
 
         //L-Shape
         shapes[4] = new Shape(blocks.getSubimage(blockSize*4,0,blockSize,blockSize), new int[][] {
                 {1,1,1},
                 {1,1,0}
-        },this);
+        },this, 5);
 
         //T-Shape
         shapes[5] = new Shape(blocks.getSubimage(blockSize*5,0,blockSize,blockSize), new int[][] {
                 {1,1,1},
                 {0,1,0}
-        },this);
+        },this, 6);
 
         //O-Shapes
         shapes[6] = new Shape(blocks.getSubimage(blockSize*6,0,blockSize,blockSize), new int[][] {
                 {1,1},
                 {1,1}
-        },this);
+        },this, 7);
 	
         setNextShape();
     }
@@ -150,7 +150,7 @@ public class Board extends JPanel implements KeyListener {
         for(int row = 0; row < board.length; row++)
         	for(int col = 0; col < board[row].length; col++)
         		if(board[row][col] != 0)
-        			g.drawImage(blocks.getSubimage(0, 0, blockSize, blockSize), col*blockSize, row*blockSize, null);
+        			g.drawImage(blocks.getSubimage((board[row][rol]-1)*blockSize, 0, blockSize, blockSize), col*blockSize, row*blockSize, null);
 
         // Draw a Matrix of Board
         for (int i = 0; i <= boardHeight; i++) {
@@ -166,7 +166,7 @@ public class Board extends JPanel implements KeyListener {
     public void setNextShape() {
     	int index = (int)(Math.random()*shapes.length);
     	
-    	Shape newShape = new Shape(shapes[index].getBlock(), shapes[index].getCoords(), this);
+    	Shape newShape = new Shape(shapes[index].getBlock(), shapes[index].getCoords(), this , shapes[index].getColor());
     	
     	currentShape = newShape;
     }
