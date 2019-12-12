@@ -211,9 +211,6 @@ public class Board extends JPanel implements KeyListener {
         g2d.setColor(new Color(0,0,0,100));
 
 
-
-
-
         // Draw a Matrix of Board
         for (int i = 0; i <= boardHeight; i++) {
             g.drawLine(0, i * blockSize, boardWidth * blockSize, i * blockSize);
