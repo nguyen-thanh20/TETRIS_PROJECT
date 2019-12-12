@@ -9,16 +9,19 @@ public class Shape {
     private int deltaX = 0;
     private int x, y;
     
+    private int color;
+	
     private boolean collision = false, moveX = false;
     
     private int normalSpeed = 600, speedDown = 60, currentSpeed ;
     private long time, lastTime;
 
-    public Shape (BufferedImage block, int[][] coords, Board board){
+    public Shape (BufferedImage block, int[][] coords, Board board, int color){
         this.block = block;
         this.coords = coords;
         this.board = board;
-
+        this.color = color;
+	    
         currentSpeed = normalSpeed;
         time = 0;
         lastTime = System.currentTimeMillis();
@@ -141,14 +144,16 @@ public class Shape {
         currentSpeed = speedDown;
     }
 
-	public BufferedImage getBlock() {
+    public BufferedImage getBlock() {
 		return block;
 	}
 
-	public int[][] getCoords() {
+    public int[][] getCoords() {
 		return coords;
 	}
-    
+    public int getColor(){
+    	return color;
+    }
     
 
  }
