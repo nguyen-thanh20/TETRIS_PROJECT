@@ -8,6 +8,7 @@ public class Window {
     private Title title;
 
     public Window() {
+
         window = new JFrame("TETRIS GAME");
         window.setSize(WIDTH,HEIGHT);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,7 +28,8 @@ public class Window {
 
     }
 
-    public void startTetris () {
+    public void startTetris()
+    {
         window.remove(title);
         window.addMouseMotionListener(board);
         window.addMouseListener(board);

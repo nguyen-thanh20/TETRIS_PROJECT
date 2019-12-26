@@ -13,7 +13,7 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 
-    private static final long serialversionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private Clip music;
 

@@ -1,7 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Window;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -42,12 +41,13 @@ public class Title extends JPanel implements MouseListener, MouseMotionListener 
 
         bounds = new Rectangle(Window.WIDTH/2 - 50, Window.HEIGHT/2 - 100, 100,80 );
         this.window = window;
+
     }
 
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
 
-        if (leftClick = bounds.contains(mouseX,mouseY)){
+        if (leftClick && bounds.contains(mouseX,mouseY)){
             window.startTetris();
         }
 
