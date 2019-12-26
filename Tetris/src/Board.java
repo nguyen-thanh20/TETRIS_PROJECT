@@ -1,8 +1,5 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -14,7 +11,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Board extends JPanel implements KeyListener {
+public class Board extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 
     private static final long serialversionUID = 1L;
 
@@ -91,7 +88,7 @@ public class Board extends JPanel implements KeyListener {
             }
         });
 
-        timer.start();
+//        timer.start();
 
         //Make 7 Shapes
 
@@ -153,8 +150,6 @@ public class Board extends JPanel implements KeyListener {
             return;
         }
         currentShape.update();
-//	    if(gameOver)
-//		    timer.stop();
     }
 
     public void paintComponent(Graphics g) {
@@ -285,7 +280,7 @@ public class Board extends JPanel implements KeyListener {
         timer.start();
     }
 
-    public void stopGame() {
+   public void stopGame() {
         score = 0;
 
         for (int row = 0; row < board.length; row ++)
@@ -297,5 +292,45 @@ public class Board extends JPanel implements KeyListener {
         }
         timer.stop();
     }
-   
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1)
+            leftClick = true;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1)
+            leftClick = false;
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+    }
+
+    public void addScore () {score++;}
 }
