@@ -49,9 +49,20 @@ public class Title extends JPanel implements MouseListener, MouseMotionListener 
 
         if (leftClick = bounds.contains(mouseX,mouseY)){
             window.startTetris();
-
-
         }
+
+        g.setColor(Color.BLACK);
+
+        g.fillRect(0,0, Window.WIDTH, Window.HEIGHT);
+
+        g.drawImage(title, Window.WIDTH/2 - title.getWidth()/2,Window.HEIGHT/2 - title.getHeight()/2 - 200, null);
+        g.drawImage(instructions, Window.WIDTH/2 - instructions.getWidth()/2,
+                Window.HEIGHT/2 - instructions.getHeight()/2 + 150, null);
+
+        if(bounds.contains(mouseX, mouseY))
+            g.drawImage(playButton[0], Window.WIDTH/2 - 50, Window.HEIGHT/2 - 100, null);
+        else
+            g.drawImage(playButton[1], Window.WIDTH/2 - 50, Window.HEIGHT/2 - 100, null);
     }
 
 
@@ -62,12 +73,12 @@ public class Title extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (e.getButton() == MouseEvent.BUTTON1) leftClick  = true;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if (e.getButton() == MouseEvent.BUTTON1) leftClick = false;
     }
 
     @Override
@@ -82,11 +93,13 @@ public class Title extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
 }
