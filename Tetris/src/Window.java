@@ -2,9 +2,10 @@ import javax.swing.*;
 
 public class Window {
 
-    public static final int WIDTH = 445 , HEIGHT = 638 ;
+    public static final int WIDTH = 445 , HEIGHT = 629 ;
     private JFrame window;
     private Board board;
+    private Title title;
 
     public Window() {
         window = new JFrame("TETRIS GAME");
@@ -14,13 +15,25 @@ public class Window {
         window.setLocationRelativeTo(null);
 
         board = new Board();
+        title = new Title(this);
 
-        window.add(board);
         window.addKeyListener(board);
+        window.addMouseMotionListener(title);
+        window.addMouseListener(title);
+
+        window.add(title);
 
         window.setVisible(true);
 
+    }
 
+    public void startTetris () {
+        window.remove(title);
+        window.addMouseMotionListener(board);
+        window.addMouseListener(board);
+        window.add(board);
+        board.startGame();
+        window.revalidate();
     }
 
     public static void main (String[] args) {
