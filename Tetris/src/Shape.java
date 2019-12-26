@@ -4,9 +4,15 @@ import java.awt.image.BufferedImage;
 public class Shape {
 
     private BufferedImage block;
+
     private int[][] coords;
+
+    private int[][] reference;
+
     private Board board;
-    private int deltaX = 0;
+
+    private int deltaX;
+
     private int x, y;
     
     private int color;
@@ -14,6 +20,7 @@ public class Shape {
     private boolean collision = false, moveX = false;
     
     private int normalSpeed = 600, speedDown = 60, currentSpeed ;
+
     private long time, lastTime;
 
     public Shape (BufferedImage block, int[][] coords, Board board, int color){
@@ -21,16 +28,22 @@ public class Shape {
         this.coords = coords;
         this.board = board;
         this.color = color;
-	    
-        currentSpeed = normalSpeed;
+
+        deltaX = 0;
         time = 0;
+        currentSpeed = normalSpeed;
         lastTime = System.currentTimeMillis();
-        
-        x = 3;
+
+        reference = new int[coords.length][coords[0].length];
+
+        System.arraycopy(coords,0,reference,0, coords.length);
+
+        x = 4;
         y = 0;
     }
 
     public void update (){
+        moveX = true;
         time += System.currentTimeMillis() - lastTime;
         lastTime = System.currentTimeMillis();
         
@@ -42,7 +55,8 @@ public class Shape {
         				board.getBoard()[y + row][x + col] = color;
         	
         	Checkline();
-        	board.setNextShape();
+        	board.addScore();
+        	board.setCurrentShape();
         }
         
         if(!(x + deltaX + coords[0].length > 10) && !(x+deltaX < 0))
@@ -81,7 +95,7 @@ public class Shape {
         }
         
         deltaX = 0;
-        moveX = true;
+
     }
 
     public void render (Graphics g) {
@@ -92,6 +106,15 @@ public class Shape {
                     g.drawImage(block, col*board.getBlockSize() + x*board.getBlockSize(),row*board.getBlockSize() + y*board.getBlockSize(), null );
             }
         }
+
+        for (int row = 0; row < reference.length; row ++) {
+            for (int col = 0; col < reference.length; col ++) {
+                if (reference[row][col] != 0) {
+                    g.drawImage(block,col*30 + 320, row*30 + 160,null);
+                }
+            }
+        }
+
 
     }
 
