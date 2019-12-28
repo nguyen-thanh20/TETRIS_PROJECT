@@ -108,9 +108,9 @@ public class Shape {
         }
 
         for (int row = 0; row < reference.length; row ++) {
-            for (int col = 0; col < reference.length; col ++) {
+            for (int col = 0; col < reference[0].length; col ++) {
                 if (reference[row][col] != 0) {
-                    g.drawImage(block,col*30 + 320, row*30 + 160,null);
+                    g.drawImage(block,col*30 + 310, row*30 + 160,null);
                 }
             }
         }

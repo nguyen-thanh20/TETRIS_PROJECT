@@ -1,13 +1,22 @@
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -70,12 +79,13 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
             music = ImageLoader.LoadSound("/music.wav");
 
-            music.loop(Clip.LOOP_CONTINUOUSLY);
+
+//            music.loop(Clip.LOOP_CONTINUOUSLY);
 
             mouseX = 0;
             mouseY = 0;
 
-            stopBounds = new Rectangle(350,350,pause.getWidth(),pause.getHeight() + pause.getHeight()/2);
+            stopBounds = new Rectangle(350,500,pause.getWidth(),pause.getHeight() + pause.getHeight()/2);
             refreshBounds = new Rectangle(350, 500 - refresh.getHeight() - 20, refresh.getWidth(),refresh.getHeight() + refresh.getHeight()/2);
 
         // Create game looper
@@ -118,7 +128,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         //L-Shape
         shapes[4] = new Shape(blocks.getSubimage(blockSize*4,0,blockSize,blockSize), new int[][] {
                 {1,1,1},
-                {1,1,0}
+                {1,0,0}
         },this, 5);
 
         //T-Shape
@@ -162,12 +172,12 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         for(int row = 0; row < board.length; row++)
         	for(int col = 0; col < board[row].length; col++)
         		if(board[row][col] != 0)
-        			g.drawImage(blocks.getSubimage((board[row][col]-1)*blockSize, 0, blockSize, blockSize), col*blockSize, row*blockSize, null);
+        			g.drawImage(blocks.getSubimage((board[row][col]-1)*blockSize, 0, blockSize, blockSize), col*blockSize, row*blockSize , null);
 
         for (int row = 0; row < nextShape.getCoords().length; row ++)
             for (int col = 0; col < nextShape.getCoords()[0].length; col ++)
                 if (nextShape.getCoords()[row][col] != 0) {
-                    g.drawImage(nextShape.getBlock(), col*30 + 320, row*30 + 50,null);
+                    g.drawImage(nextShape.getBlock(), col*30 + 310 , row*30 + 50 ,null);
                 }
 
         currentShape.render(g);
@@ -176,6 +186,12 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
             g.drawImage(pause.getScaledInstance(pause.getWidth() + 3, pause.getHeight() + 3, BufferedImage.SCALE_DEFAULT), stopBounds.x + 3, stopBounds.y + 3, null);
             } else {
                 g.drawImage(pause, stopBounds.x, stopBounds.y, null);
+        }
+
+        if (refreshBounds.contains(mouseX,mouseY)) {
+            g.drawImage(refresh.getScaledInstance(refresh.getWidth() + 3, refresh.getHeight() + 3, BufferedImage.SCALE_DEFAULT), refreshBounds.x + 3, refreshBounds.y + 3, null);
+        } else  {
+            g.drawImage(refresh, refreshBounds.x, refreshBounds.y, null);
         }
 
         if (gamePaused)
