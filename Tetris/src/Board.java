@@ -80,7 +80,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
             music = ImageLoader.LoadSound("/music.wav");
 
 
-//            music.loop(Clip.LOOP_CONTINUOUSLY);
+            music.loop(Clip.LOOP_CONTINUOUSLY);
 
             mouseX = 0;
             mouseY = 0;
@@ -98,7 +98,6 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
             }
         });
 
-//        timer.start();
 
         //Make 7 Shapes
 
@@ -143,7 +142,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
                 {1,1}
         },this, 7);
 	
-        //setNextShape();
+
     }
 
     public void update() {

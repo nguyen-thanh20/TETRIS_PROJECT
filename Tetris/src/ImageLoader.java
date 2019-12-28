@@ -21,6 +21,7 @@ public class ImageLoader {
         try {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(ImageLoader.class.getResource(direction)));
+            return clip;
         } catch (Exception e) {
             e.printStackTrace();
         }
