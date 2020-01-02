@@ -145,7 +145,7 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     }
 
-    public void update() {
+    public void update(){
 
         if (stopBounds.contains(mouseX,mouseY) && leftClick && !buttonLapse.isRunning() && !gameOver) {
             buttonLapse.start();
@@ -278,7 +278,6 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_DOWN)
             currentShape.normalSpeed();;
-
     }
 
     @Override
